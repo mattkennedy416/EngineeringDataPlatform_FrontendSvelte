@@ -7,6 +7,9 @@
 
     let nextNodeID = 0;
     let nodeAddID = null;
+
+
+    export let pipelineNodeSelected = () => {}
     
     
 
@@ -63,7 +66,7 @@
         }
 
         // we'll also need to put the content of this transform into the text box... need to figure out how to send that trigger to the other component
-        
+        pipelineNodeSelected(node.id);
     }
 
     function getNodeByID(id) {

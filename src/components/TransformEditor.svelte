@@ -13,6 +13,13 @@
     let selectedTransformName = 'myTransform()'
     let transformContent = 'def myTransform(input1, input2):\n\t'
 
+    export function transformSelectedFromPipelineEditor(nodeID) {
+        console.log("I got run in child component!");
+        console.log(nodeID);
+
+        transformContent = "node selected: " + nodeID.toString();
+    } 
+
 
     function buttonClickExecuteTransform() {
 

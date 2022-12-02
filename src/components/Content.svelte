@@ -18,6 +18,7 @@
 	import Flowchart from "./Flowchart.svelte"
 	import TransformEditor from './TransformEditor.svelte';
 
+	import PipelinesEditor from './PipelinesEditor.svelte';
 
 
 import { SimpleCodeEditor } from 'svelte-simple-code-editor';
@@ -737,14 +738,14 @@ import { SimpleCodeEditor } from 'svelte-simple-code-editor';
 	</TabList>
   
 	<TabPanel>
-		<div class="w-full">
-			<!-- <Svelvet nodes={initialNodes} edges={initialEdges} background /> -->
+		<!-- <div class="w-full">
 			<Flowchart />
 		</div>
 		<div class="w-full">
-			<!-- <SimpleCodeEditor value="let x = 1;\n console.log(x);" /> -->
 			<TransformEditor />
-		</div>
+		</div> -->
+
+		<PipelinesEditor />
 	  
 
 	  <!-- <SimpleCodeEditor value="let x = 1;\n console.log(x);" /> -->
