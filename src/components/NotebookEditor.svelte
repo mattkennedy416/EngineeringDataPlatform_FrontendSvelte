@@ -1,5 +1,5 @@
 
-
+<!-- https://svelte.dev/repl/f60141d0fd714f7eac2888c6e5a4bfd4?version=3.53.1 -->
 
 <style>
     .draggable {
@@ -8,7 +8,7 @@
       -moz-user-select:none; -webkit-user-select:none; -ms-user-select:none; user-select:none;
     }
   
-    .Note {
+    .Container {
       display:block; position:absolute;
       left:20px; top:20px; width:400px; height:120px;
       padding:20px 0px 0px 0px;
@@ -16,7 +16,7 @@
       text-align:center;
     }
   
-    .Note-Titlebar {
+    .Container-Titlebar {
       display:block; position:absolute;
       left:0px; top:0px; width:100%; height:20px; background-color:palegoldenrod;
       cursor:grab;
@@ -43,10 +43,10 @@
     margin:20px;
     border:solid 1px black
   ">
-    <div class="Note" use:draggable={{
-      handle:'.Note-Titlebar', containment:'parent', cursor:'grabbing'
+    <div class="Container" use:draggable={{
+      handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing'
     }}>
-      <div class="draggable Note-Titlebar"></div>
+      <div class="draggable Container-Titlebar"></div>
       <!-- <span style="position:relative; left:-5px">Drag from Titlebar only</span> -->
       <TextArea value="content" />
     </div>
