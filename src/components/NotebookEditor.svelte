@@ -26,11 +26,25 @@
   <script>
     import { draggable } from 'svelte-agnostic-draggable'
     import { TextArea } from "carbon-components-svelte";
+    import { Button } from "carbon-components-svelte";
   
   /**** map all touch events to mouse events ****/
   
-    import mapTouchToMouseFor from 'svelte-touch-to-mouse'
+    //import mapTouchToMouseFor from 'svelte-touch-to-mouse'
     //mapTouchToMouseFor('.draggable')
+
+    let dragLocked = false;
+    function toggleLock(){
+        dragLocked = !dragLocked;
+        console.log(dragLocked);
+    }
+
+    function dragStart(event){
+        console.log("starting drag!");
+        if (dragLocked) {event.cancel()}
+    }
+
+
   </script>
   
   <p style="line-height:150%">
@@ -43,11 +57,10 @@
     margin:20px;
     border:solid 1px black
   ">
-    <div class="Container" use:draggable={{
-      handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing'
-    }}>
+    <div class="Container" use:draggable={{handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing', 'drag:start': function(event){console.log(dragLocked); if (dragLocked) {event.cancel()}}}}>
       <div class="draggable Container-Titlebar"></div>
       <!-- <span style="position:relative; left:-5px">Drag from Titlebar only</span> -->
+      <Button on:click={() => toggleLock()}>Lock</Button>
       <TextArea value="content" />
     </div>
   </div>
