@@ -22,6 +22,8 @@
 
 
 import { SimpleCodeEditor } from 'svelte-simple-code-editor';
+
+import NotebookEditor from './NotebookEditor.svelte';
 	
 </script>
 
@@ -729,7 +731,7 @@ import { SimpleCodeEditor } from 'svelte-simple-code-editor';
 
 </main>
 
-{:else}
+{:else if title === "Unbox Messages"}
 <Tabs>
 	<TabList>
 	  <Tab>One</Tab>
@@ -760,4 +762,16 @@ import { SimpleCodeEditor } from 'svelte-simple-code-editor';
 		<SimpleCodeEditor value="let x = 1;\n console.log(x);" />
 	</TabPanel>
   </Tabs>
+{:else}
+
+<NotebookEditor />
+
+
+<!-- <Draggable>
+	<SimpleCodeEditor value="let x = 1;\n console.log(x);" />
+</Draggable>
+<h1>
+    Drag Me
+</h1> -->
+
 {/if}
