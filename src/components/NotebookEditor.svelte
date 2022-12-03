@@ -33,15 +33,33 @@
     //import mapTouchToMouseFor from 'svelte-touch-to-mouse'
     //mapTouchToMouseFor('.draggable')
 
+    let dragBarWidth=300;
+    let dragBarOpenHeight = 20;
+    let dragBarCurrentHeight = 20;
+
+    let draggableContainer;
+    let draggableContainerDragBar;
+
     let dragLocked = false;
     function toggleLock(){
         dragLocked = !dragLocked;
-        console.log(dragLocked);
+
+        if (dragLocked)
+            dragBarCurrentHeight = 0;
+        else
+            dragBarCurrentHeight = dragBarOpenHeight;
+
+        
     }
 
-    function dragStart(event){
-        console.log("starting drag!");
-        if (dragLocked) {event.cancel()}
+    function onDragStart(event){
+        // and this is when a drag event starts
+    }
+
+    function onDragInit(event)
+    {
+        // this is when object is created / mounted
+        
     }
 
 
@@ -57,8 +75,8 @@
     margin:20px;
     border:solid 1px black
   ">
-    <div class="Container" use:draggable={{handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing', 'drag:start': function(event){console.log(dragLocked); if (dragLocked) {event.cancel()}}}}>
-      <div class="draggable Container-Titlebar"></div>
+    <div bind:this={draggableContainer} class="Container" use:draggable={{handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing'}} on:drag:start={onDragStart} on:draggable:init={onDragInit}>
+      <div class="draggable Container-Titlebar" style="width:{Width}px; height:{Height}px"></div>
       <!-- <span style="position:relative; left:-5px">Drag from Titlebar only</span> -->
       <Button on:click={() => toggleLock()}>Lock</Button>
       <TextArea value="content" />
