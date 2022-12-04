@@ -32,6 +32,10 @@
     //import mapTouchToMouseFor from 'svelte-touch-to-mouse'
     //mapTouchToMouseFor('.draggable')
 
+    export let groupContainerIsBeingDragged = () => {}
+
+    let containerID;
+
     let dragBarWidth=300;
     let dragBarOpenHeight = 20;
     let dragBarCurrentHeight = 20;
@@ -66,13 +70,29 @@
         
     }
 
+    function onDragMove(event) {
+      // THIS CONTAINER IS BEING DRAGGED
+      groupContainerIsBeingDragged(containerID, event);
+    }
+
     export function setYPositionInGroup(y)
     {
       containerYPos = y;
     }
 
+    export function setContainerID(id) {
+        containerID = id;
+    }
+
     export function getContainerHeight() {
       return containerHeight;
+    }
+
+    export function groupIsMoving(deltaX, deltaY) {
+        containerXPos = containerXPos + deltaX;
+        containerYPos = containerYPos + deltaY;
+
+        console.log("moving container " + containerID.toString())
     }
 
 
@@ -85,6 +105,7 @@
           use:draggable={{handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing'}} 
           on:drag:start={onDragStart} 
           on:draggable:init={onDragInit}
+          on:drag:move={onDragMove}
           style="left:{containerXPos}px; top:{containerYPos}px; height:{containerHeight}px">
       <div class="draggable Container-Titlebar" style="width:{dragBarWidth}px; height:{dragBarCurrentHeight}px"></div>
       <Button on:click={() => toggleLock()}>Lock</Button>

@@ -14,17 +14,15 @@ let containersInGroup = [
 // ok but actually do we even need to do this? can we just reference the above?
 let loadedObjectBinds = new Map();
 
-//containersInGroup[0].setYPositionInGroup(10);
-//containersInGroup[1].component.setYPositionInGroup(100);
-// containersInGroup[2].component.setYPositionInGroup(300);
 
-//console.log(containersInGroup[0].component.setYPositionInGroup);
 
 onMount(() => {
   
   let totalHeight = 0;
 
   for (let i=0; i<3; i++) {
+      loadedObjectBinds[i].setContainerID(i);
+
       let h = loadedObjectBinds[i].getContainerHeight();
       totalHeight = totalHeight + h;
       loadedObjectBinds[i].setYPositionInGroup(totalHeight);
@@ -33,12 +31,29 @@ onMount(() => {
   
 })
 
+export function groupContainerIsBeingDragged(originatingContainerID, moveEvent) {
+  // gotta drag the rest of the containers along with them!
+
+  let deltaX = moveEvent.detail.originalEvent.movementX;
+  let deltaY = moveEvent.detail.originalEvent.movementY;
+  //console.log(moveEvent.detail.originalEvent.movementX);
+
+  for (let i=0; i<3; i++) {
+      if (i === originatingContainerID)
+          continue; // the event will move them 
+
+      loadedObjectBinds[i].groupIsMoving(deltaX, deltaY);
+      
+  }
+
+}
+
 </script>
 
 
 
 
 {#each containersInGroup as obj (obj.id)}
-  <NotebookContainerSingle object={obj} bind:this={loadedObjectBinds[obj.id]}/>
+  <NotebookContainerSingle object={obj} bind:this={loadedObjectBinds[obj.id]} groupContainerIsBeingDragged={(id, event) => groupContainerIsBeingDragged(id, event)}/>
 {/each}
 
