@@ -39,6 +39,8 @@
     let containerXPos = 0;
     let containerYPos = 300;
 
+    let containerHeight = 200;
+
     let draggableContainer;
     let draggableContainerDragBar;
 
@@ -69,6 +71,10 @@
       containerYPos = y;
     }
 
+    export function getContainerHeight() {
+      return containerHeight;
+    }
+
 
   </script>
   
@@ -79,7 +85,7 @@
           use:draggable={{handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing'}} 
           on:drag:start={onDragStart} 
           on:draggable:init={onDragInit}
-          style="left:{containerXPos}px; top:{containerYPos}px">
+          style="left:{containerXPos}px; top:{containerYPos}px; height:{containerHeight}px">
       <div class="draggable Container-Titlebar" style="width:{dragBarWidth}px; height:{dragBarCurrentHeight}px"></div>
       <Button on:click={() => toggleLock()}>Lock</Button>
       <TextArea value="content" />

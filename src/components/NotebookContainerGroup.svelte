@@ -2,7 +2,7 @@
 
 
 <script>
-
+import {onMount} from "svelte";
 import NotebookContainerSingle from "./NotebookContainerSingle.svelte"
 
 let containersInGroup = [
@@ -19,6 +19,19 @@ let loadedObjectBinds = new Map();
 // containersInGroup[2].component.setYPositionInGroup(300);
 
 //console.log(containersInGroup[0].component.setYPositionInGroup);
+
+onMount(() => {
+  
+  let totalHeight = 0;
+
+  for (let i=0; i<3; i++) {
+      let h = loadedObjectBinds[i].getContainerHeight();
+      totalHeight = totalHeight + h;
+      loadedObjectBinds[i].setYPositionInGroup(totalHeight);
+  }
+  
+  
+})
 
 </script>
 
