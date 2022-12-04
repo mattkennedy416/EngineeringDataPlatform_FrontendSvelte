@@ -40,6 +40,8 @@
     let dragBarOpenHeight = 20;
     let dragBarCurrentHeight = 20;
 
+    let containerRelativeXPos = 0;
+    let containerRelativeYPos = 300;
     let containerXPos = 0;
     let containerYPos = 300;
 
@@ -75,9 +77,15 @@
       groupContainerIsBeingDragged(containerID, event);
     }
 
-    export function setYPositionInGroup(y)
+    export function setYPositionInGroup(groupXPosition, groupYPosition, relativeY)
     {
-      containerYPos = y;
+      containerYPos = groupYPosition + relativeY;
+      containerXPos = groupXPosition;
+      containerRelativeYPos = relativeY;
+    }
+
+    export function getContainerRelativeYPos() {
+      return containerRelativeYPos;
     }
 
     export function setContainerID(id) {
@@ -88,11 +96,14 @@
       return containerHeight;
     }
 
-    export function groupIsMoving(deltaX, deltaY) {
-        containerXPos = containerXPos + deltaX;
-        containerYPos = containerYPos + deltaY;
+    export function groupIsMoving(groupXPosition, groupYPosition) {
+        //containerRelativeXPos = containerRelativeXPos + deltaX;
+        //containerRelativeYPos = containerRelativeYPos + deltaY;
 
-        console.log("moving container " + containerID.toString())
+        //console.log("moving container " + containerID.toString())
+
+        containerYPos = groupYPosition + containerRelativeYPos;
+        containerXPos = groupXPosition;
     }
 
 

@@ -14,6 +14,9 @@ let containersInGroup = [
 // ok but actually do we even need to do this? can we just reference the above?
 let loadedObjectBinds = new Map();
 
+let groupXPosition = 0;
+let groupYPosition = 0;
+
 
 
 onMount(() => {
@@ -25,7 +28,7 @@ onMount(() => {
 
       let h = loadedObjectBinds[i].getContainerHeight();
       totalHeight = totalHeight + h;
-      loadedObjectBinds[i].setYPositionInGroup(totalHeight);
+      loadedObjectBinds[i].setYPositionInGroup(groupXPosition, groupYPosition, totalHeight);
   }
   
   
@@ -34,15 +37,26 @@ onMount(() => {
 export function groupContainerIsBeingDragged(originatingContainerID, moveEvent) {
   // gotta drag the rest of the containers along with them!
 
+  console.log(moveEvent.detail.position);
+
   let deltaX = moveEvent.detail.originalEvent.movementX;
   let deltaY = moveEvent.detail.originalEvent.movementY;
   //console.log(moveEvent.detail.originalEvent.movementX);
+
+  let newLeft = moveEvent.detail.position.left;
+  let newTop = moveEvent.detail.position.top;
+  console.log(newLeft);
+
+  let groupXPosition = newLeft; 
+
+  let originatingRelativeY = loadedObjectBinds[originatingContainerID].getContainerRelativeYPos();
+  let groupYPosition = newTop - originatingRelativeY;
 
   for (let i=0; i<3; i++) {
       if (i === originatingContainerID)
           continue; // the event will move them 
 
-      loadedObjectBinds[i].groupIsMoving(deltaX, deltaY);
+      loadedObjectBinds[i].groupIsMoving(groupXPosition, groupYPosition);
       
   }
 
