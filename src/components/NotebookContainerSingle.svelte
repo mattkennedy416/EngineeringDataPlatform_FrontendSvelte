@@ -1,7 +1,6 @@
-
 <!-- https://svelte.dev/repl/f60141d0fd714f7eac2888c6e5a4bfd4?version=3.53.1 -->
 
-<!-- <style>
+<style>
     .draggable {
       -webkit-touch-callout:none;
       -ms-touch-action:none; touch-action:none;
@@ -65,45 +64,12 @@
 
   </script>
   
-  <p style="line-height:150%">
-    Drag the note around - dragging should be restricted to the bordered area:
-  </p>
+
   
-  <div style="
-    display:block; position:relative;
-    width:800px; height:1500px;
-    margin:20px;
-    border:solid 1px black
-  ">
+
     <div bind:this={draggableContainer} class="Container" use:draggable={{handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing'}} on:drag:start={onDragStart} on:draggable:init={onDragInit}>
       <div class="draggable Container-Titlebar" style="width:{dragBarWidth}px; height:{dragBarCurrentHeight}px"></div>
       <Button on:click={() => toggleLock()}>Lock</Button>
       <TextArea value="content" />
     </div>
-  </div> -->
-
-  <script>
-
-    import NotebookContainerSingle from "./NotebookContainerSingle.svelte"
-
-  </script>
-
-<div style="
-display:block; position:relative;
-width:800px; height:1500px;
-margin:20px;
-border:solid 1px black
-">
-
-  <NotebookContainerSingle />
-
-  <NotebookContainerSingle />
-
-</div>
-
-  
-  <p style="line-height:150%">
-    For mobile development: please note, that "mapTouchToMouseFor" must be applied
-    to the actual handle, not the element which uses the "draggable" action!
-  </p>
 
