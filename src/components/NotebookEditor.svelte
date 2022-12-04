@@ -4,6 +4,8 @@
 
     import NotebookContainerSingle from "./NotebookContainerSingle.svelte"
     import NotebookContainerGroup from "./NotebookContainerGroup.svelte";
+    import NotebookCanvas from "./NotebookCanvas.svelte";
+  import { Notebook } from "carbon-icons-svelte";
 
   </script>
 
@@ -11,11 +13,15 @@
 display:block; position:relative;
 width:800px; height:1500px;
 margin:20px;
-border:solid 1px black
+border:solid 1px black;
+scale:0.5em
 ">
+
+<!-- <NotebookCanvas /> -->
 
   <NotebookContainerGroup />
 
+    
 
 </div>
 

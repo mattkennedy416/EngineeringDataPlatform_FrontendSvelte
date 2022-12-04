@@ -2,6 +2,7 @@
 
 
 <script>
+  import { draggable } from 'svelte-agnostic-draggable'
 import {onMount} from "svelte";
 import NotebookContainerSingle from "./NotebookContainerSingle.svelte"
 
@@ -17,7 +18,7 @@ let loadedObjectBinds = new Map();
 let groupXPosition = 0;
 let groupYPosition = 0;
 
-let groupTotalHeight = 0;
+let groupTotalHeight = 40; // whatever height of the container group bar
 
 let _nextContainerID = 3; // since we're manually creating a few above
 
@@ -45,8 +46,9 @@ function NumContainers() {
 
 export function newInlineContainerMounted(containerID, containerType) {
     let h = loadedObjectBinds[containerID].getContainerHeight();
-    groupTotalHeight = groupTotalHeight + h;
+    
     loadedObjectBinds[containerID].setPositionInGroup(groupXPosition, groupYPosition, groupTotalHeight, 0);
+    groupTotalHeight = groupTotalHeight + h;
 }
 
 export function newSideContainerMounted(containerID, containerType, parentID) {
@@ -107,20 +109,95 @@ export function groupAddSideContainerToThis(containerID, containerDetails) {
   // containersInGroup[newID].setYPositionInGroup(groupXPosition, groupYPosition, totalHeight);
 }
 
+function onDragStart(event) {
+  console.log("drag event start!");
+}
+
+function onDragInit(event) {
+  console.log("draggable init");
+}
+
+function onDragMove(event) {
+
+}
+
 </script>
 
 
+<style>
 
+.draggable {
+      -webkit-touch-callout:none;
+      -ms-touch-action:none; touch-action:none;
+      -moz-user-select:none; -webkit-user-select:none; -ms-user-select:none; user-select:none;
+    }
+
+.ContainerGroup {
+      display:block; position:absolute;
+      left:00px; top:100px; width:400px; height:40px;
+      border:solid 1px lightgray; background-color:green;
+      text-align:center;
+      cursor:grab;
+      scale:1;
+    }
+
+    .Container-Titlebar {
+      display:block; position:absolute;
+      left:0px; top:0px; width:100%; height:20px; background-color:palegoldenrod;
+      cursor:grab;
+    }
+
+</style>
+
+
+<!-- <div class="ContainerGroup"
+        use:draggable={{handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing'}} 
+        on:drag:start={onDragStart} 
+        on:draggable:init={onDragInit}
+        on:drag:move={onDragMove}>
+
+  {#each containersInGroup as obj (obj.id)}
+    <NotebookContainerSingle object={obj} bind:this={loadedObjectBinds[obj.id]} 
+            containerID={obj.id} 
+            containerType={obj.type}
+            containerData={obj.data}
+            groupContainerIsBeingDragged={(id, event) => groupContainerIsBeingDragged(id, event)} 
+            groupAddSideContainerToThis={(id, details) => groupAddSideContainerToThis(id, details)}
+            newInlineContainerMounted={(id, type) => newInlineContainerMounted(id, type)}
+            newSideContainerMounted={(id, type, parent) => newSideContainerMounted(id, type, parent)}
+            />
+  {/each}
+
+</div> -->
+
+
+<div class="draggable ContainerGroup" use:draggable={{
+  containment:'parent', cursor:'grabbing'
+}} style="
+  display:block; position:absolute;
+  left:20px; top:20px; width:100px; text-align:center;
+  padding:10px; background:forestgreen; cursor:grab
+" on:draggable:init={onDragInit}
+  on:drag:start={onDragStart} 
+  on:drag:move={onDragMove}
+>
 
 {#each containersInGroup as obj (obj.id)}
-  <NotebookContainerSingle object={obj} bind:this={loadedObjectBinds[obj.id]} 
-          containerID={obj.id} 
-          containerType={obj.type}
-          containerData={obj.data}
-          groupContainerIsBeingDragged={(id, event) => groupContainerIsBeingDragged(id, event)} 
-          groupAddSideContainerToThis={(id, details) => groupAddSideContainerToThis(id, details)}
-          newInlineContainerMounted={(id, type) => newInlineContainerMounted(id, type)}
-          newSideContainerMounted={(id, type, parent) => newSideContainerMounted(id, type, parent)}
-          />
+<NotebookContainerSingle object={obj} bind:this={loadedObjectBinds[obj.id]} 
+        containerID={obj.id} 
+        containerType={obj.type}
+        containerData={obj.data}
+        groupContainerIsBeingDragged={(id, event) => groupContainerIsBeingDragged(id, event)} 
+        groupAddSideContainerToThis={(id, details) => groupAddSideContainerToThis(id, details)}
+        newInlineContainerMounted={(id, type) => newInlineContainerMounted(id, type)}
+        newSideContainerMounted={(id, type, parent) => newSideContainerMounted(id, type, parent)}
+        />
 {/each}
+
+
+
+</div>
+
+
+
 

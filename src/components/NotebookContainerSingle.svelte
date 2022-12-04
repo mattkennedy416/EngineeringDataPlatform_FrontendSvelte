@@ -9,10 +9,11 @@
   
     .Container {
       display:block; position:absolute;
-      left:20px; top:200px; width:400px; height:120px;
+      left:20px; top:50px; width:400px; height:120px;
       padding:20px 0px 0px 0px;
       border:solid 1px lightgray; background-color:lightyellow;
       text-align:center;
+      /* scale:0.5; so this works */
     }
   
     .Container-Titlebar {
