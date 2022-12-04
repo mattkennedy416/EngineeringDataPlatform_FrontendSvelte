@@ -35,13 +35,19 @@
 
     export let groupContainerIsBeingDragged = () => {}
     export let groupAddSideContainerToThis = () => {}
-    export let newContainerMounted = () => {}
+    export let newInlineContainerMounted = () => {}
+    export let newSideContainerMounted = () => {}
 
     export let containerID;
+    export let containerType;
 
     onMount(() => {
       // let the container group actually handle most of the initialization here
-      newContainerMounted(containerID);
+      if (containerType === "side")
+          newSideContainerMounted(containerID, containerType, 0);
+      else
+          newInlineContainerMounted(containerID, containerType);
+      
     })
 
     let dragBarWidth=300;
@@ -88,15 +94,20 @@
       groupContainerIsBeingDragged(containerID, event);
     }
 
-    export function setYPositionInGroup(groupXPosition, groupYPosition, relativeY)
+    export function setPositionInGroup(groupXPosition, groupYPosition, relativeY, relativeX)
     {
       containerYPos = groupYPosition + relativeY;
-      containerXPos = groupXPosition;
+      containerXPos = groupXPosition + relativeX;
       containerRelativeYPos = relativeY;
+      containerRelativeXPos = relativeX;
     }
 
     export function getContainerRelativeYPos() {
       return containerRelativeYPos;
+    }
+
+    export function getContainerRelativeXPos() {
+      return containerRelativeXPos;
     }
 
     export function setContainerID(id) {
@@ -114,7 +125,7 @@
         //console.log("moving container " + containerID.toString())
 
         containerYPos = groupYPosition + containerRelativeYPos;
-        containerXPos = groupXPosition;
+        containerXPos = groupXPosition + containerRelativeXPos;
     }
 
 

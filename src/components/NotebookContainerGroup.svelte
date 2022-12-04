@@ -6,9 +6,9 @@ import {onMount} from "svelte";
 import NotebookContainerSingle from "./NotebookContainerSingle.svelte"
 
 let containersInGroup = [
-    {id: 0, component: NotebookContainerSingle},
-    {id: 1, component: NotebookContainerSingle},
-    {id: 2, component: NotebookContainerSingle},
+    {id: 0, type: "code", component: NotebookContainerSingle},
+    {id: 1, type: "code", component: NotebookContainerSingle},
+    {id: 2, type: "code", component: NotebookContainerSingle},
 ]
 
 // ok but actually do we even need to do this? can we just reference the above?
@@ -35,10 +35,27 @@ function getNextContainerID() {
     return _nextContainerID;
 }
 
-export function newContainerMounted(containerID) {
+function Container(containerID) {
+  return loadedObjectBinds[containerID];
+}
+
+function NumContainers() {
+  return containersInGroup.length;
+}
+
+export function newInlineContainerMounted(containerID, containerType) {
     let h = loadedObjectBinds[containerID].getContainerHeight();
     groupTotalHeight = groupTotalHeight + h;
-    loadedObjectBinds[containerID].setYPositionInGroup(groupXPosition, groupYPosition, groupTotalHeight);
+    loadedObjectBinds[containerID].setPositionInGroup(groupXPosition, groupYPosition, groupTotalHeight, 0);
+}
+
+export function newSideContainerMounted(containerID, containerType, parentID) {
+    console.log("mounting new side container to parent " + parentID.toString());
+
+    // I think we want to set it to same height as parent, right?
+    let relY = loadedObjectBinds[parentID].getContainerRelativeYPos();
+    let relX = 400;
+    Container(containerID).setPositionInGroup(groupXPosition, groupYPosition, relY, relX);
 }
 
 export function groupContainerIsBeingDragged(originatingContainerID, moveEvent) {
@@ -54,17 +71,24 @@ export function groupContainerIsBeingDragged(originatingContainerID, moveEvent) 
   let newTop = moveEvent.detail.position.top;
   console.log(newLeft);
 
-  let groupXPosition = newLeft; 
+  let originatingRelativeX = Container(originatingContainerID).getContainerRelativeXPos();
+  let groupXPosition = newLeft - originatingRelativeX; 
 
   let originatingRelativeY = loadedObjectBinds[originatingContainerID].getContainerRelativeYPos();
   let groupYPosition = newTop - originatingRelativeY;
 
-  for (let i=0; i<3; i++) {
-      if (i === originatingContainerID)
-          continue; // the event will move them 
+  // for (let i=0; i<NumContainers(); i++) {
+  //     if (i === originatingContainerID)
+  //         continue; // the event will move them 
 
-      loadedObjectBinds[i].groupIsMoving(groupXPosition, groupYPosition);
-      
+  //     loadedObjectBinds[i].groupIsMoving(groupXPosition, groupYPosition);
+  // }
+
+  for (const [key, value] of Object.entries(loadedObjectBinds)) {
+    if (key == originatingContainerID)
+      continue;
+    
+    value.groupIsMoving(groupXPosition, groupYPosition);
   }
 
 }
@@ -74,7 +98,7 @@ export function groupAddSideContainerToThis(containerID, containerDetails) {
   console.log("adding side container to " + containerID);
 
   let newID = getNextContainerID();
-  containersInGroup.push({id: newID, component: NotebookContainerSingle});
+  containersInGroup.push({id: newID, type: "side", component: NotebookContainerSingle});
   containersInGroup = containersInGroup;
 
   let relY = containersInGroup
@@ -91,8 +115,11 @@ export function groupAddSideContainerToThis(containerID, containerDetails) {
 {#each containersInGroup as obj (obj.id)}
   <NotebookContainerSingle object={obj} bind:this={loadedObjectBinds[obj.id]} 
           containerID={obj.id} 
+          containerType={obj.type}
           groupContainerIsBeingDragged={(id, event) => groupContainerIsBeingDragged(id, event)} 
           groupAddSideContainerToThis={(id, details) => groupAddSideContainerToThis(id, details)}
-          newContainerMounted={(id) => newContainerMounted(id)}/>
+          newInlineContainerMounted={(id, type) => newInlineContainerMounted(id, type)}
+          newSideContainerMounted={(id, type, parent) => newSideContainerMounted(id, type, parent)}
+          />
 {/each}
 
