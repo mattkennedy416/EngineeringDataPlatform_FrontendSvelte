@@ -26,6 +26,7 @@
     import { draggable } from 'svelte-agnostic-draggable'
     import { TextArea } from "carbon-components-svelte";
     import { Button } from "carbon-components-svelte";
+  import { onMount } from 'svelte';
   
   /**** map all touch events to mouse events ****/
   
@@ -33,8 +34,15 @@
     //mapTouchToMouseFor('.draggable')
 
     export let groupContainerIsBeingDragged = () => {}
+    export let groupAddSideContainerToThis = () => {}
+    export let newContainerMounted = () => {}
 
-    let containerID;
+    export let containerID;
+
+    onMount(() => {
+      // let the container group actually handle most of the initialization here
+      newContainerMounted(containerID);
+    })
 
     let dragBarWidth=300;
     let dragBarOpenHeight = 20;
@@ -58,8 +66,11 @@
             dragBarCurrentHeight = 0;
         else
             dragBarCurrentHeight = dragBarOpenHeight;
+    }
 
-        
+    function addSideContainerToThis() {
+      // do whatever we need to figure out the type and details here
+      groupAddSideContainerToThis(containerID, "not implemented");
     }
 
     function onDragStart(event){
@@ -121,5 +132,6 @@
       <div class="draggable Container-Titlebar" style="width:{dragBarWidth}px; height:{dragBarCurrentHeight}px"></div>
       <Button on:click={() => toggleLock()}>Lock</Button>
       <TextArea value="content" />
+      <Button on:click={() => addSideContainerToThis()}>Add Side Container</Button>
     </div>
 

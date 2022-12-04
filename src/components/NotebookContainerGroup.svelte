@@ -17,22 +17,29 @@ let loadedObjectBinds = new Map();
 let groupXPosition = 0;
 let groupYPosition = 0;
 
+let groupTotalHeight = 0;
+
+let _nextContainerID = 3; // since we're manually creating a few above
+
 
 
 onMount(() => {
   
-  let totalHeight = 0;
-
-  for (let i=0; i<3; i++) {
-      loadedObjectBinds[i].setContainerID(i);
-
-      let h = loadedObjectBinds[i].getContainerHeight();
-      totalHeight = totalHeight + h;
-      loadedObjectBinds[i].setYPositionInGroup(groupXPosition, groupYPosition, totalHeight);
-  }
-  
+    // note that this will only get called at the CREATION OF A NEW GROUP
+    // not if additional containers are added to the group
   
 })
+
+function getNextContainerID() {
+    _nextContainerID = _nextContainerID + 1;
+    return _nextContainerID;
+}
+
+export function newContainerMounted(containerID) {
+    let h = loadedObjectBinds[containerID].getContainerHeight();
+    groupTotalHeight = groupTotalHeight + h;
+    loadedObjectBinds[containerID].setYPositionInGroup(groupXPosition, groupYPosition, groupTotalHeight);
+}
 
 export function groupContainerIsBeingDragged(originatingContainerID, moveEvent) {
   // gotta drag the rest of the containers along with them!
@@ -62,12 +69,30 @@ export function groupContainerIsBeingDragged(originatingContainerID, moveEvent) 
 
 }
 
+export function groupAddSideContainerToThis(containerID, containerDetails) {
+  // container details should have something like: {containerType: str; containerData: whatever/json/etc}
+  console.log("adding side container to " + containerID);
+
+  let newID = getNextContainerID();
+  containersInGroup.push({id: newID, component: NotebookContainerSingle});
+  containersInGroup = containersInGroup;
+
+  let relY = containersInGroup
+
+  // containersInGroup[newID].setContainerID(newID);
+  // containersInGroup[newID].setYPositionInGroup(groupXPosition, groupYPosition, totalHeight);
+}
+
 </script>
 
 
 
 
 {#each containersInGroup as obj (obj.id)}
-  <NotebookContainerSingle object={obj} bind:this={loadedObjectBinds[obj.id]} groupContainerIsBeingDragged={(id, event) => groupContainerIsBeingDragged(id, event)}/>
+  <NotebookContainerSingle object={obj} bind:this={loadedObjectBinds[obj.id]} 
+          containerID={obj.id} 
+          groupContainerIsBeingDragged={(id, event) => groupContainerIsBeingDragged(id, event)} 
+          groupAddSideContainerToThis={(id, details) => groupAddSideContainerToThis(id, details)}
+          newContainerMounted={(id) => newContainerMounted(id)}/>
 {/each}
 
