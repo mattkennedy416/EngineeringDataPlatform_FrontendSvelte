@@ -9,7 +9,7 @@
   
     .Container {
       display:block; position:absolute;
-      left:20px; top:20px; width:400px; height:120px;
+      left:20px; top:200px; width:400px; height:120px;
       padding:20px 0px 0px 0px;
       border:solid 1px lightgray; background-color:lightyellow;
       text-align:center;
@@ -36,6 +36,9 @@
     let dragBarOpenHeight = 20;
     let dragBarCurrentHeight = 20;
 
+    let containerXPos = 0;
+    let containerYPos = 300;
+
     let draggableContainer;
     let draggableContainerDragBar;
 
@@ -61,13 +64,22 @@
         
     }
 
+    export function setYPositionInGroup(y)
+    {
+      containerYPos = y;
+    }
+
 
   </script>
   
 
   
 
-    <div bind:this={draggableContainer} class="Container" use:draggable={{handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing'}} on:drag:start={onDragStart} on:draggable:init={onDragInit}>
+    <div bind:this={draggableContainer} class="Container" 
+          use:draggable={{handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing'}} 
+          on:drag:start={onDragStart} 
+          on:draggable:init={onDragInit}
+          style="left:{containerXPos}px; top:{containerYPos}px">
       <div class="draggable Container-Titlebar" style="width:{dragBarWidth}px; height:{dragBarCurrentHeight}px"></div>
       <Button on:click={() => toggleLock()}>Lock</Button>
       <TextArea value="content" />
