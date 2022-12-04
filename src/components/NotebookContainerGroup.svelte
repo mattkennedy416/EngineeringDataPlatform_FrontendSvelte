@@ -6,9 +6,9 @@ import {onMount} from "svelte";
 import NotebookContainerSingle from "./NotebookContainerSingle.svelte"
 
 let containersInGroup = [
-    {id: 0, type: "code", component: NotebookContainerSingle},
-    {id: 1, type: "code", component: NotebookContainerSingle},
-    {id: 2, type: "code", component: NotebookContainerSingle},
+    {id: 0, type: "code", data: {"parent": -1}, component: NotebookContainerSingle},
+    {id: 1, type: "code", data: {"parent": -1}, component: NotebookContainerSingle},
+    {id: 2, type: "code", data: {"parent": -1}, component: NotebookContainerSingle},
 ]
 
 // ok but actually do we even need to do this? can we just reference the above?
@@ -98,7 +98,7 @@ export function groupAddSideContainerToThis(containerID, containerDetails) {
   console.log("adding side container to " + containerID);
 
   let newID = getNextContainerID();
-  containersInGroup.push({id: newID, type: "side", component: NotebookContainerSingle});
+  containersInGroup.push({id: newID, type: "side", data: {"parent": containerID}, component: NotebookContainerSingle});
   containersInGroup = containersInGroup;
 
   let relY = containersInGroup
@@ -116,6 +116,7 @@ export function groupAddSideContainerToThis(containerID, containerDetails) {
   <NotebookContainerSingle object={obj} bind:this={loadedObjectBinds[obj.id]} 
           containerID={obj.id} 
           containerType={obj.type}
+          containerData={obj.data}
           groupContainerIsBeingDragged={(id, event) => groupContainerIsBeingDragged(id, event)} 
           groupAddSideContainerToThis={(id, details) => groupAddSideContainerToThis(id, details)}
           newInlineContainerMounted={(id, type) => newInlineContainerMounted(id, type)}

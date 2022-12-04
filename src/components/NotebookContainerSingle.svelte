@@ -40,11 +40,12 @@
 
     export let containerID;
     export let containerType;
+    export let containerData;
 
     onMount(() => {
       // let the container group actually handle most of the initialization here
       if (containerType === "side")
-          newSideContainerMounted(containerID, containerType, 0);
+          newSideContainerMounted(containerID, containerType, containerData['parent']);
       else
           newInlineContainerMounted(containerID, containerType);
       
