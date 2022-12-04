@@ -7,15 +7,15 @@ import StatisticsIcon from './icons/StatisticsIcon.svelte';
 
 const data = [
 	{
-		section: 'Documents',
+		section: 'Explore',
 		icon: DocumentsIcon,
 		content: [
 			{
-				title: 'Taxes',
+				title: 'Notebooks',
 				link: '/documents/taxes'
 			},
 			{
-				title: 'Travel',
+				title: 'Databases',
 				link: '/documents/travel'
 			},
 			{
@@ -25,25 +25,25 @@ const data = [
 		]
 	},
 	{
-		section: 'Messages',
+		section: 'Pipelines',
 		icon: MessagesIcon,
 		content: [
 			{
-				title: 'Unbox',
+				title: 'Develop',
 				link: '/messages/unbox'
 			},
 			{
-				title: 'Unread',
+				title: 'Schedules',
 				link: '/messages/unread'
 			},
 			{
-				title: 'Archived',
-				link: '/messages/archived'
+				title: 'History',
+				link: '/pipelines/history'
 			}
 		]
 	},
 	{
-		section: 'Pictures',
+		section: 'Reports',
 		icon: PicturesIcon,
 		content: [
 			{
@@ -61,7 +61,7 @@ const data = [
 		]
 	},
 	{
-		section: 'Statistics',
+		section: 'Models',
 		icon: StatisticsIcon,
 		content: [
 			{
@@ -79,21 +79,21 @@ const data = [
 		]
 	},
 	{
-		section: 'Events',
+		section: 'Settings',
 		icon: EventsIcon,
 		content: [
 			{
-				title: 'Weddings',
+				title: 'Compute Resources',
 				link: '/events/weddings'
 			},
 			{
-				title: 'Networking',
+				title: 'Workspace Settings',
 				link: '/events/networking'
 			}
 		]
 	},
 	{
-		section: 'Guides',
+		section: 'Documentation',
 		icon: GuidesIcon,
 		content: [
 			{
