@@ -12,6 +12,8 @@ let containersInGroup = [
     {id: 2, type: "code", data: {"parent": -1}, component: NotebookContainerSingle},
 ]
 
+export let visualScale = 1;
+
 // ok but actually do we even need to do this? can we just reference the above?
 let loadedObjectBinds = new Map();
 
@@ -141,34 +143,10 @@ function onDragMove(event) {
       scale:1;
     }
 
-    .Container-Titlebar {
-      display:block; position:absolute;
-      left:0px; top:0px; width:100%; height:20px; background-color:palegoldenrod;
-      cursor:grab;
-    }
 
 </style>
 
 
-<!-- <div class="ContainerGroup"
-        use:draggable={{handle:'.Container-Titlebar', containment:'parent', cursor:'grabbing'}} 
-        on:drag:start={onDragStart} 
-        on:draggable:init={onDragInit}
-        on:drag:move={onDragMove}>
-
-  {#each containersInGroup as obj (obj.id)}
-    <NotebookContainerSingle object={obj} bind:this={loadedObjectBinds[obj.id]} 
-            containerID={obj.id} 
-            containerType={obj.type}
-            containerData={obj.data}
-            groupContainerIsBeingDragged={(id, event) => groupContainerIsBeingDragged(id, event)} 
-            groupAddSideContainerToThis={(id, details) => groupAddSideContainerToThis(id, details)}
-            newInlineContainerMounted={(id, type) => newInlineContainerMounted(id, type)}
-            newSideContainerMounted={(id, type, parent) => newSideContainerMounted(id, type, parent)}
-            />
-  {/each}
-
-</div> -->
 
 
 <div class="draggable ContainerGroup" use:draggable={{
@@ -176,7 +154,7 @@ function onDragMove(event) {
 }} style="
   display:block; position:absolute;
   left:20px; top:20px; width:100px; text-align:center;
-  padding:10px; background:forestgreen; cursor:grab
+  padding:10px; background:forestgreen; cursor:grab;
 " on:draggable:init={onDragInit}
   on:drag:start={onDragStart} 
   on:drag:move={onDragMove}

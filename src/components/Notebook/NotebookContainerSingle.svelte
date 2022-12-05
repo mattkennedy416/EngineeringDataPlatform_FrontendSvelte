@@ -66,7 +66,7 @@
     let draggableContainer;
     let draggableContainerDragBar;
 
-    let dragLocked = false;
+    let dragLocked = true; // locked by default
     function toggleLock(){
         dragLocked = !dragLocked;
 
@@ -76,7 +76,7 @@
             dragBarCurrentHeight = dragBarOpenHeight;
     }
 
-    function addSideContainerToThis() {
+    function addSideContainerToThis(type, data) {
       // do whatever we need to figure out the type and details here
       groupAddSideContainerToThis(containerID, "not implemented");
     }
@@ -143,8 +143,28 @@
           on:drag:move={onDragMove}
           style="left:{containerXPos}px; top:{containerYPos}px; height:{containerHeight}px">
       <div class="draggable Container-Titlebar" style="width:{dragBarWidth}px; height:{dragBarCurrentHeight}px"></div>
-      <Button on:click={() => toggleLock()}>Lock</Button>
+      <!-- <Button on:click={() => toggleLock()}>Lock</Button> -->
       <TextArea value="content" />
-      <Button on:click={() => addSideContainerToThis()}>Add Side Container</Button>
+
+      {#if containerType === "code"}
+      <Button style="
+          display:block; position:absolute;
+          left:400px; top:20px; width:40px; height:40px; text-align:center;
+          padding:10px; background:forestgreen;" 
+      on:click={() => addSideContainerToThis("scrap", {})}>Scrap</Button>
+
+      <Button style="
+          display:block; position:absolute;
+          left:400px; top:70px; width:40px;  height:40px; text-align:center;
+          padding:10px; background:forestgreen;" 
+      on:click={() => addSideContainerToThis("plot", {})}>Plot</Button>
+
+      <Button style="
+          display:block; position:absolute;
+          left:400px; top:120px; width:40px; height:40px; text-align:center;
+          padding:10px; background:forestgreen;" 
+          on:click={() => addSideContainerToThis("table", {})}>Table</Button>
+      {/if}
+
     </div>
 
