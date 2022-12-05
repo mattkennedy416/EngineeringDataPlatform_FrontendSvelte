@@ -11,7 +11,7 @@
 
 <div style="
 display:block; position:relative;
-width:800px; height:1500px;
+width:900px; height:1500px;
 margin:20px;
 border:solid 1px black;
 scale:0.5em

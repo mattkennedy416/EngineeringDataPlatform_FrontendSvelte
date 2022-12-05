@@ -5,7 +5,7 @@
   import { draggable } from 'svelte-agnostic-draggable'
 import {onMount} from "svelte";
 import NotebookContainerSingle from "./NotebookContainerSingle.svelte"
-import NotebookContainerPythonCode from './NotebookContainer_PythonCode.svelte';
+
 
 let containersInGroup = [
     {id: 0, type: "code", data: {"parent": -1}, component: NotebookContainerSingle},
@@ -59,7 +59,7 @@ export function newSideContainerMounted(containerID, containerType, parentID) {
 
     // I think we want to set it to same height as parent, right?
     let relY = loadedObjectBinds[parentID].getContainerRelativeYPos();
-    let relX = 400;
+    let relX = 450;
     Container(containerID).setPositionInGroup(groupXPosition, groupYPosition, relY, relX);
 }
 

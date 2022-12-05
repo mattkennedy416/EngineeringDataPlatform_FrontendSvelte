@@ -28,6 +28,8 @@ https://svelte.dev/repl/f60141d0fd714f7eac2888c6e5a4bfd4?version=3.53.1
   import { TextArea } from "carbon-components-svelte";
   import { Button } from "carbon-components-svelte";
 import { onMount } from 'svelte';
+import Bars from '../Visualizations/Bars.svelte';
+
 
 /**** map all touch events to mouse events ****/
 
@@ -54,7 +56,7 @@ import { onMount } from 'svelte';
 
   let dragBarWidth=300;
   let dragBarOpenHeight = 20;
-  let dragBarCurrentHeight = 20;
+  let dragBarCurrentHeight = 0;
 
   let containerRelativeXPos = 0;
   let containerRelativeYPos = 300;
@@ -172,7 +174,14 @@ import { onMount } from 'svelte';
 {:else if containerType === "scrap"}
 
 <TextArea value="content" />
-console.log("creating scrap container")
+
+{:else if containerType === "plot"}
+
+<Bars />
+
+{:else if containerType === "table"}
+
+
 
 {/if}
 
