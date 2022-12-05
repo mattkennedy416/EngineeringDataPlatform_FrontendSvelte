@@ -2,8 +2,8 @@
 
   <script>
 
-    import NotebookContainerSingle from "./NotebookContainerSingle.svelte"
-    import NotebookContainerGroup from "./NotebookContainerGroup.svelte";
+    import NotebookContainerSingle from "./Notebook/NotebookContainerSingle.svelte"
+    import NotebookContainerGroup from "./Notebook/NotebookContainerGroup.svelte";
     import NotebookCanvas from "./NotebookCanvas.svelte";
   import { Notebook } from "carbon-icons-svelte";
 

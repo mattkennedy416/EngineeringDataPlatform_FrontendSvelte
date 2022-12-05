@@ -5,6 +5,7 @@
   import { draggable } from 'svelte-agnostic-draggable'
 import {onMount} from "svelte";
 import NotebookContainerSingle from "./NotebookContainerSingle.svelte"
+import NotebookContainerPythonCode from './NotebookContainer_PythonCode.svelte';
 
 let containersInGroup = [
     {id: 0, type: "code", data: {"parent": -1}, component: NotebookContainerSingle},
@@ -97,12 +98,12 @@ export function groupContainerIsBeingDragged(originatingContainerID, moveEvent) 
 
 }
 
-export function groupAddSideContainerToThis(containerID, containerDetails) {
+export function groupAddSideContainerToThis(containerID, type, data) {
   // container details should have something like: {containerType: str; containerData: whatever/json/etc}
   console.log("adding side container to " + containerID);
 
   let newID = getNextContainerID();
-  containersInGroup.push({id: newID, type: "side", data: {"parent": containerID}, component: NotebookContainerSingle});
+  containersInGroup.push({id: newID, type: type, data: {"parent": containerID}, component: NotebookContainerSingle});
   containersInGroup = containersInGroup;
 
   let relY = containersInGroup
