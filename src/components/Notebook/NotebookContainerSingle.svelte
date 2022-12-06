@@ -54,6 +54,21 @@ import Bars from '../Visualizations/Bars.svelte';
     
   })
 
+  let parameters = 'hello world'
+  let backendConnectionResponse;
+  async function BackendConnection() {
+    const res = await fetch('http://127.0.0.1:5000/workspace/hello', {
+      method: 'POST' 
+    });
+
+    const json = await res.json();
+    backendConnectionResponse = JSON.stringify(json);
+    codeText = backendConnectionResponse;
+  }
+
+  let codeText = ""
+  BackendConnection();
+
   let dragBarWidth=300;
   let dragBarOpenHeight = 20;
   let dragBarCurrentHeight = 0;
@@ -151,7 +166,7 @@ import Bars from '../Visualizations/Bars.svelte';
 
 {#if containerType === "code"}
 
-    <TextArea value="content" />
+    <TextArea bind:value={codeText} />
 
     <Button style="
         display:block; position:absolute;
