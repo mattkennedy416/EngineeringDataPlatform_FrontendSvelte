@@ -34,6 +34,26 @@ onMount(() => {
   
 })
 
+let cellData;
+  async function ReadCellsFromBackend(cellIndexes) {
+    // cellIndexes should be a list of integers that we want to query
+    // if cellIndexes is empty, get everything
+
+    const res = await fetch('http://127.0.0.1:5000/workspace/notebooks', {
+      method: 'POST' 
+    });
+
+    const json = await res.json();
+    //let response = JSON.stringify(json);
+    
+    // do any validation or error handling here
+
+    //cellData = response;
+    console.log(json);
+  }
+
+  ReadCellsFromBackend([]) // load everything
+
 function getNextContainerID() {
     _nextContainerID = _nextContainerID + 1;
     return _nextContainerID;
