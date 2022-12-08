@@ -13,7 +13,8 @@ let cellData = [];
     // if cellIndexes is empty, get everything
 
     const res = await fetch('http://127.0.0.1:5000/workspace/notebooks', {
-      method: 'POST' 
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
     });
 
     const json = await res.json();

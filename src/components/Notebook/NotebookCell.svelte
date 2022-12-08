@@ -9,6 +9,7 @@ export let cellData;
 
 let cellOutputHTML = "<b>hello world html</b>"
 let cellContent = "";
+let envVariables = "";
 
 function addSideContainerToThis(containerType, containerData) {
 
@@ -33,7 +34,8 @@ async function executeCell() {
     // do any validation or error handling here
 
     cellOutputHTML = json.output;
-    console.log(cellOutputHTML);
+    envVariables = json.environment;
+    console.log(envVariables);
 }
 
 onMount( async () => {
