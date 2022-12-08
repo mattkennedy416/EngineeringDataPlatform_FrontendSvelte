@@ -731,7 +731,7 @@ import NotebookEditor from './NotebookEditor.svelte';
 
 </main>
 
-{:else if title === "Unbox Messages"}
+{:else if title === "Develop"}
 <Tabs>
 	<TabList>
 	  <Tab>One</Tab>

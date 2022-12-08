@@ -17,13 +17,14 @@ function addSideContainerToThis(containerType, containerData) {
 
 
 let executionResponse = [];
-async function executeCell(cellIndexes) {
+async function executeCell() {
     // we should know what language we are but lets just assume python for now
+    let code = cellContent
 
-    var data = new FormData();
-    data.append("code", cellContent)
     const res = await fetch('http://127.0.0.1:5000/', {
-        method: 'POST'
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body:JSON.stringify({code})
     });
 
     const json = await res.json();
@@ -31,7 +32,7 @@ async function executeCell(cellIndexes) {
 
     // do any validation or error handling here
 
-    cellOutputHTML = json;
+    cellOutputHTML = json.output;
     console.log(cellOutputHTML);
 }
 
