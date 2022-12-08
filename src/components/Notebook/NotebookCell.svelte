@@ -55,23 +55,7 @@ onMount( async () => {
 <TextArea bind:value={cellContent} />
 
 
-<Button style="
-display:block; position:absolute;
-left:400px; top:20px; width:40px; height:40px; text-align:center;
-padding:10px; background:forestgreen;" 
-on:click={() => addSideContainerToThis("scrap", {})}>Scrap</Button>
 
-<Button style="
-display:block; position:absolute;
-left:400px; top:70px; width:40px;  height:40px; text-align:center;
-padding:10px; background:forestgreen;" 
-on:click={() => addSideContainerToThis("plot", {})}>Plot</Button>
-
-<Button style="
-display:block; position:absolute;
-left:400px; top:120px; width:40px; height:40px; text-align:center;
-padding:10px; background:forestgreen;" 
-on:click={() => addSideContainerToThis("table", {})}>Table</Button>
 
 
 <p>{@html cellOutputHTML}</p>

@@ -5,7 +5,10 @@
 
 
 import NotebookCell from "./NotebookCell.svelte";
+import NotebookSideViewButtons from "./NotebookSideViewButtons.svelte";
 import { Button } from "carbon-components-svelte";
+
+import NotebookTableView from "./NotebookTableView.svelte";
 
 let notebookFilename = 'testNotebook.edpnb'
 
@@ -64,9 +67,14 @@ let cellData = [];
 
 <Button style="background:blue" on:click={() => SaveNotebook()}>Save Notebook</Button>
 
+<NotebookSideViewButtons />
+
 {#each cellData as data}
 <NotebookCell bind:this={loadedObjectBinds[data.cellID]} 
         cellData={data}
         />
 {/each}
 
+
+
+<NotebookTableView />
