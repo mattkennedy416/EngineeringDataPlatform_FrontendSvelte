@@ -16,6 +16,11 @@ function addSideContainerToThis(containerType, containerData) {
 }
 
 
+export function GetCurrentCellContent() {
+    return cellContent;
+}
+
+
 
 let executionResponse = [];
 async function executeCell() {
