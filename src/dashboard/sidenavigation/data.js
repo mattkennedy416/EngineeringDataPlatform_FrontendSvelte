@@ -12,15 +12,11 @@ const data = [
 		content: [
 			{
 				title: 'Notebooks',
-				link: '/documents/taxes'
+				link: '/explore/notebooks'
 			},
 			{
 				title: 'Databases',
-				link: '/documents/travel'
-			},
-			{
-				title: 'Insurance',
-				link: '/documents/insurance'
+				link: '/explore/databases'
 			}
 		]
 	},
@@ -30,11 +26,11 @@ const data = [
 		content: [
 			{
 				title: 'Develop',
-				link: '/messages/unbox'
+				link: '/pipelines/develop'
 			},
 			{
 				title: 'Schedules',
-				link: '/messages/unread'
+				link: '/pipelines/schedules'
 			},
 			{
 				title: 'History',
@@ -46,36 +42,14 @@ const data = [
 		section: 'Reports',
 		icon: PicturesIcon,
 		content: [
-			{
-				title: 'Vacations',
-				link: '/pictures/vacations'
-			},
-			{
-				title: 'Anniversary',
-				link: '/pictures/anniversary'
-			},
-			{
-				title: 'University',
-				link: '/pictures/university'
-			}
+
 		]
 	},
 	{
 		section: 'Models',
 		icon: StatisticsIcon,
 		content: [
-			{
-				title: 'Finances',
-				link: '/statistics/finances'
-			},
-			{
-				title: 'Call Stats',
-				link: '/statistics/call-stats'
-			},
-			{
-				title: 'Trip Logs',
-				link: '/statistics/trip-logs'
-			}
+
 		]
 	},
 	{
@@ -84,11 +58,11 @@ const data = [
 		content: [
 			{
 				title: 'Compute Resources',
-				link: '/events/weddings'
+				link: '/settings/compute_resources'
 			},
 			{
 				title: 'Workspace Settings',
-				link: '/events/networking'
+				link: '/settings/workspace_settings'
 			}
 		]
 	},

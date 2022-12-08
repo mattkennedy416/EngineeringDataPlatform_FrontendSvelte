@@ -14,6 +14,27 @@ function addSideContainerToThis(containerType, containerData) {
 
 }
 
+
+
+let executionResponse = [];
+async function executeCell(cellIndexes) {
+    // we should know what language we are but lets just assume python for now
+
+    var data = new FormData();
+    data.append("code", cellContent)
+    const res = await fetch('http://127.0.0.1:5000/', {
+        method: 'POST'
+    });
+
+    const json = await res.json();
+    //let response = JSON.stringify(json);
+
+    // do any validation or error handling here
+
+    cellOutputHTML = json;
+    console.log(cellOutputHTML);
+}
+
 onMount( async () => {
     cellContent = cellData.cellContent;
 })
@@ -21,7 +42,7 @@ onMount( async () => {
 </script>
 
 
-
+<Button style="background:orange" on:click={() => executeCell()}>Execute</Button>
 
 <TextArea bind:value={cellContent} />
 

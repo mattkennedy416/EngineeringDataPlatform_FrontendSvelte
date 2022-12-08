@@ -762,7 +762,7 @@ import NotebookEditor from './NotebookEditor.svelte';
 		<SimpleCodeEditor value="let x = 1;\n console.log(x);" />
 	</TabPanel>
   </Tabs>
-{:else}
+{:else if title == "Notebooks"}
 
 <NotebookEditor />
 
