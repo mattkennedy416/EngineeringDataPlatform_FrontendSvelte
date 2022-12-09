@@ -3,21 +3,30 @@
 
 <script>
 	import { DataTable } from "carbon-components-svelte";
-    import {ComboBox} from "carbon-components-svelte";
+    import {Dropdown} from "carbon-components-svelte";
+
+	let dropdownSelectedID = "0";
+
+	function dropdownSelectionChanged() {
+		console.log("selected id: " + dropdownSelectedID)
+	}
+
   </script>
   
 
 
-  <ComboBox
-  titleText="Contact"
-  placeholder="Select contact method"
-  selectedId="1"
+  <Dropdown
+  type="inline"
+  titleText="Select Table"
+  bind:selectedId={dropdownSelectedID}
+  on:select={dropdownSelectionChanged}
   items={[
     { id: "0", text: "Slack" },
     { id: "1", text: "Email" },
     { id: "2", text: "Fax" },
   ]}
 />
+
 
 
   <DataTable
