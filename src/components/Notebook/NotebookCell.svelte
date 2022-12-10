@@ -6,6 +6,8 @@ import { TextArea } from "carbon-components-svelte";
 import { Button } from "carbon-components-svelte";
 
 export let cellData;
+export let cellID;
+export let notebookExecuteCell = () => {}
 
 let cellOutputHTML = "<b>hello world html</b>"
 let cellContent = "";
@@ -25,22 +27,25 @@ export function GetCurrentCellContent() {
 let executionResponse = [];
 async function executeCell() {
     // we should know what language we are but lets just assume python for now
-    let code = cellContent
 
-    const res = await fetch('http://127.0.0.1:5000/', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body:JSON.stringify({code})
-    });
+    notebookExecuteCell(cellData.cellID);
 
-    const json = await res.json();
-    //let response = JSON.stringify(json);
+    // let code = cellContent
 
-    // do any validation or error handling here
+    // const res = await fetch('http://127.0.0.1:5000/', {
+    //     method: 'POST',
+    //     headers: {'Content-Type': 'application/json'},
+    //     body:JSON.stringify({code})
+    // });
 
-    cellOutputHTML = json.output;
-    envVariables = json.environment;
-    console.log(envVariables);
+    // const json = await res.json();
+    // //let response = JSON.stringify(json);
+
+    // // do any validation or error handling here
+
+    // cellOutputHTML = json.output;
+    // envVariables = json.environment;
+    // console.log(envVariables);
 }
 
 onMount( async () => {
