@@ -10,14 +10,15 @@ import { Button } from "carbon-components-svelte";
 
 import NotebookTableView from "./NotebookTableView.svelte";
 
-let notebookFilename = 'testNotebook.edpnb'
+let notebookPath = 'notebooks/testNotebook.edpnb'
+let notebookName = "testNotebook";
 
 let cellData = [];
   async function ReadCellsFromBackend(cellIndexes) {
     // cellIndexes should be a list of integers that we want to query
     // if cellIndexes is empty, get everything
 
-    const res = await fetch('http://127.0.0.1:5000/workspace/notebooks?notebookFilename='+notebookFilename, {
+    const res = await fetch('http://127.0.0.1:5000/workspace/notebooks?notebookPath='+notebookPath, {
         method: 'GET'
     });
 
@@ -32,8 +33,11 @@ let cellData = [];
     
     // do any validation or error handling here
 
-    cellData = json;
-    console.log(cellData);
+    cellData = json.cellContents;
+    notebookName = json.notebookName;
+    notebookPath = json.notebookPath;
+    console.log(json);
+
   }
 
   async function SaveNotebook() {
@@ -49,7 +53,7 @@ let cellData = [];
     const res = await fetch('http://127.0.0.1:5000/workspace/notebooks', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body:JSON.stringify({notebookFilename, content})
+        body:JSON.stringify({notebookPath, notebookName, content})
     });
   }
 
