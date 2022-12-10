@@ -61,6 +61,31 @@ let cellData = [];
   onMount( async () => {
     ReadCellsFromBackend([]) // load everything
   })
+
+  export async function ExecuteCell(cellID) {
+    console.log("executing cell from notebook!");
+
+    for (let i=0; i<cellData.length; i++) {
+      if (cellData[i].cellID == cellID) {
+        // we found our cell, lets do our execution
+
+        let cellContent = cellData[i];
+
+        const res = await fetch('http://127.0.0.1:5000/workspace/notebooks/execute', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body:JSON.stringify({notebookName, cellContent})
+        });
+
+        console.log(res);
+
+
+
+        return; // don't worry about executing multiple for now, just stop when we get our first response
+      }
+    }
+
+  }
   
 
   let loadedObjectBinds = new Map();
@@ -76,6 +101,8 @@ let cellData = [];
 {#each cellData as data}
 <NotebookCell bind:this={loadedObjectBinds[data.cellID]} 
         cellData={data}
+        cellID={data.cellID}
+        notebookExecuteCell={(cellID) => ExecuteCell(cellID)}
         />
 {/each}
 
