@@ -4,6 +4,7 @@
 import { onMount } from "svelte";
 import { TextArea } from "carbon-components-svelte";
 import { Button } from "carbon-components-svelte";
+import NotebookTableView from "./NotebookTableView.svelte";
 
 export let cellData;
 export let cellID;
@@ -12,6 +13,9 @@ export let notebookExecuteCell = () => {}
 let cellOutputHTML = "<b>hello world html</b>"
 let cellContent = "";
 let envVariables = "";
+let tablesInCell;
+
+let tableView;
 
 function addSideContainerToThis(containerType, containerData) {
 
@@ -20,6 +24,14 @@ function addSideContainerToThis(containerType, containerData) {
 
 export function GetCurrentCellContent() {
     return cellContent;
+}
+
+export function SetExecutionResults(htmlOutput, envVar, tableVars) {
+    cellOutputHTML = htmlOutput;
+    envVariables = envVar;
+    tablesInCell = tableVars;
+
+    tableView.SetAvailableTableVars(tableVars);
 }
 
 
@@ -65,5 +77,5 @@ onMount( async () => {
 
 <p>{@html cellOutputHTML}</p>
 
-
+<NotebookTableView bind:this={tableView}/>
 

@@ -77,9 +77,11 @@ let cellData = [];
         body:JSON.stringify({notebookName, cellContent})
         });
 
-        console.log(res);
+        const json = await res.json();
 
+        console.log(json);
 
+        loadedObjectBinds[cellID].SetExecutionResults(json.output, json.environment, json.tablesInCell)
 
         return; // don't worry about executing multiple for now, just stop when we get our first response
       }
@@ -108,4 +110,4 @@ let cellData = [];
 
 
 
-<NotebookTableView />
+

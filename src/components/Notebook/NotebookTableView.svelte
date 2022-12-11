@@ -6,9 +6,19 @@
     import {Dropdown} from "carbon-components-svelte";
 
 	let dropdownSelectedID = "0";
+	let dropdownItems = []
 
 	function dropdownSelectionChanged() {
 		console.log("selected id: " + dropdownSelectedID)
+	}
+
+	export function SetAvailableTableVars(tableVars) {
+		
+		dropdownItems = []; // is there a better way to clear?
+		for (let i=0; i<tableVars.length; i++) {
+			dropdownItems.push({id: i.toString(), text: tableVars[i]});
+		}
+
 	}
 
   </script>
@@ -20,13 +30,14 @@
   titleText="Select Table"
   bind:selectedId={dropdownSelectedID}
   on:select={dropdownSelectionChanged}
-  items={[
+  bind:items={dropdownItems}
+/>
+
+<!-- items={[
     { id: "0", text: "Slack" },
     { id: "1", text: "Email" },
     { id: "2", text: "Fax" },
-  ]}
-/>
-
+  ]} -->
 
 
   <DataTable
