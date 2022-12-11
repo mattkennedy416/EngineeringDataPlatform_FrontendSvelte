@@ -8,18 +8,50 @@
 	let dropdownSelectedID = "0";
 	let dropdownItems = []
 
+	export let notebookName;
+
 	function dropdownSelectionChanged() {
-		console.log("selected id: " + dropdownSelectedID)
+
+		for (let i=0; i<dropdownItems.length; i++) {
+			if (dropdownItems[i].id == dropdownSelectedID) {
+				
+				let tableVar = dropdownItems[i].text;
+				console.log("selected table var: " + tableVar);
+
+				LoadTableData(tableVar);
+
+				return;
+			}
+		}
+		
 	}
 
 	export function SetAvailableTableVars(tableVars) {
 		
-		dropdownItems = []; // is there a better way to clear?
+		dropdownItems = [{id: "0", text: "Select Table"}]; // is there a better way to clear?
 		for (let i=0; i<tableVars.length; i++) {
-			dropdownItems.push({id: i.toString(), text: tableVars[i]});
+			dropdownItems.push({id: (i+1).toString(), text: tableVars[i]});
 		}
 
 	}
+
+	async function LoadTableData(tableVar) {
+		
+		let type = "tableView";
+		let tableView = {"variable": tableVar, "maxRows": 50};
+
+        const res = await fetch('http://127.0.0.1:5000/workspace/notebooks/inspect', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body:JSON.stringify({notebookName, type, tableView})
+        });
+
+        const json = await res.json();
+
+        console.log(json);
+
+
+  	}
 
   </script>
   

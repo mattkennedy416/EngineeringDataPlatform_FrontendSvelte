@@ -10,6 +10,8 @@ export let cellData;
 export let cellID;
 export let notebookExecuteCell = () => {}
 
+export let notebookName;
+
 let cellOutputHTML = "<b>hello world html</b>"
 let cellContent = "";
 let envVariables = "";
@@ -77,5 +79,5 @@ onMount( async () => {
 
 <p>{@html cellOutputHTML}</p>
 
-<NotebookTableView bind:this={tableView}/>
+<NotebookTableView bind:this={tableView} notebookName={notebookName}/>
 

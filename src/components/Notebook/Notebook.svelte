@@ -104,6 +104,7 @@ let cellData = [];
 <NotebookCell bind:this={loadedObjectBinds[data.cellID]} 
         cellData={data}
         cellID={data.cellID}
+        notebookName={notebookName}
         notebookExecuteCell={(cellID) => ExecuteCell(cellID)}
         />
 {/each}
