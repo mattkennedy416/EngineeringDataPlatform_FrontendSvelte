@@ -68,7 +68,10 @@ let cellData = [];
     for (let i=0; i<cellData.length; i++) {
       if (cellData[i].cellID == cellID) {
         // we found our cell, lets do our execution
-
+        // need to make sure we pull the latest content 
+        let id = cellData[i].cellID;
+        cellData[i].cellContent = loadedObjectBinds[id].GetCurrentCellContent();
+        
         let cellContent = cellData[i];
 
         const res = await fetch('http://127.0.0.1:5000/workspace/notebooks/execute', {
