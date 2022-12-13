@@ -88,13 +88,20 @@
   ]} -->
 
 
+<div style="
+display:block; position:relative;
+width:500px; height:200;
+border:solid 1px black;
+">
   <DataTable
 	bind:headers={headers}
 	bind:rows={rows}
   />
 
+</div>
 
-  <!-- headers={[
+
+<!-- headers={[
 	{ key: "name", value: "Name" },
 	{ key: "protocol", value: "Protocol" },
 	{ key: "port", value: "Port" },

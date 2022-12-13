@@ -55,7 +55,11 @@
 		]
 	},
 	"dependencies": {
+		"@carbon/charts": "^1.6.2",
+		"@carbon/charts-svelte": "^1.6.2",
+		"@carbon/styles": "^1.19.0",
 		"@revolist/svelte-datagrid": "^3.2.16",
+		"@snlab/florence": "^0.4.0",
 		"carbon-components-svelte": "^0.70.12",
 		"carbon-icons-svelte": "^11.4.0",
 		"flowbite-svelte": "^0.28.4",

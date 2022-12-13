@@ -5,6 +5,7 @@ import { onMount } from "svelte";
 import { TextArea } from "carbon-components-svelte";
 import { Button } from "carbon-components-svelte";
 import NotebookTableView from "./NotebookTableView.svelte";
+import Scatterplot from "../Visualizations/Scatterplot.svelte";
 
 export let cellData;
 export let cellID;
@@ -80,4 +81,6 @@ onMount( async () => {
 <p>{@html cellOutputHTML}</p>
 
 <NotebookTableView bind:this={tableView} notebookName={notebookName}/>
+
+<Scatterplot />
 
