@@ -12,12 +12,18 @@
 
 	let headers;
 	let rows;
+	let headersDefault = [];
+	let rowsDefault = [];
 
 	function dropdownSelectionChanged() {
 
 		 // presumably we'll have a default 0 item here that isn't actually a variable
-		if (dropdownSelectedID == "0")
+		if (dropdownSelectedID == "0") {
+			rows = rowsDefault;
+			headers = headersDefault
 			return;
+		}
+			
 
 		for (let i=0; i<dropdownItems.length; i++) {
 			if (dropdownItems[i].id == dropdownSelectedID) {
